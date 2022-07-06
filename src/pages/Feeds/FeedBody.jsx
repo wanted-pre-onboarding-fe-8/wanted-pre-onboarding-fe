@@ -56,6 +56,7 @@ const IconsAndLike = styled.div``;
 const Icons = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 8px;
 `;
 
 const LeftSide = styled.div`
