@@ -32,7 +32,7 @@ function FeedBody({
             <MdBookmarkBorder size="29" />
           </RightSide>
         </Icons>
-        <Like>좋아요 {like}개</Like>
+        <Like>좋아요 {like.toLocaleString()}개</Like>
       </IconsAndLike>
       <Comments
         comments={comments}
