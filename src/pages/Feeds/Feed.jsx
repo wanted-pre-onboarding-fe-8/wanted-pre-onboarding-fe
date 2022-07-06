@@ -50,7 +50,7 @@ function Feed({ feed }) {
 export default Feed;
 
 const Container = styled.div`
-  display: ${({ isImageReady }) => (isImageReady ? 'block' : 'none')};
+  display: ${({ isImageReady }) => (isImageReady ? 'flex' : 'none')};
   max-width: 550px;
   min-width: 470px;
   width: 40%;
@@ -58,7 +58,6 @@ const Container = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   background-color: #fafafa;
-  display: flex;
   flex-direction: column;
   @media (max-width: 499px) {
     min-width: 0px;
