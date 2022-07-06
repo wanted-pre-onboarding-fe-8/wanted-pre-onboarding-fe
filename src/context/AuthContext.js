@@ -1,5 +1,5 @@
 import React from 'react';
-import { setItem, getItem, removeItem } from '../utils/helpers/stroage';
+import { setItem, getItem, removeItem } from '../utils/helpers/storage';
 
 const defaultContext = {
   isLoggedIn: false,
