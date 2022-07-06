@@ -30,6 +30,7 @@ const AuthContextProvider = ({ children }) => {
 
   const logout = () => {
     removeItem(STORAGE_IS_LOGGED_IN);
+    removeItem(STORAGE_USER_ID);
     setIsLoggedIn(false);
   };
 
