@@ -16,7 +16,6 @@ function Feed({ feed }) {
   const commentInput = useRef(null);
   const [comments, setComments] = useState(defaultComments);
   const [isImageReady, setIsImageReady] = useState(false);
-  console.log(userId);
   useEffect(() => {
     commentInput.current.value = '';
   }, [comments]);

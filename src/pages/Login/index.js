@@ -29,7 +29,6 @@ const Login = () => {
       passwordRef.current?.value === PASSWORD
     ) {
       const id = emailRef.current.value;
-      console.log(id);
       login(id);
     }
   };
