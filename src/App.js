@@ -1,14 +1,12 @@
 import React from 'react';
-import Routes from './Route.js';
 import { AuthContextProvider } from './context/AuthContext';
-import Login from './pages/Login';
+import Router from './Router';
 
 const App = () => {
   return (
     <>
       <AuthContextProvider>
-        {/* <Routes /> */}
-        <Login />
+        <Router />
       </AuthContextProvider>
     </>
   );

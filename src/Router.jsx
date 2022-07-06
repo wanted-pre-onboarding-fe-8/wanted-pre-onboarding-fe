@@ -1,15 +1,22 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
-const ROUTE_PATH_LOGIN = '/';
-const ROUTE_PATH_FEEDS = '/feeds';
+import { useAuthState } from './context/AuthContext';
+import Login from './pages/Login';
+import Feeds from './pages/Feeds';
 
 export default function Router() {
-  const isAuth = false; // get context
+  const { isLoggedIn } = useAuthState();
+
   return (
     <Routes>
-      <Route path={ROUTE_PATH_LOGIN} element={<AuthLogin isAuth={isAuth} />} />
-      <Route path={ROUTE_PATH_FEEDS} element={<AuthFeeds isAuth={isAuth} />} />
+      <Route
+        path={ROUTE_PATH_LOGIN}
+        element={<AuthLogin isAuth={isLoggedIn} />}
+      />
+      <Route
+        path={ROUTE_PATH_FEEDS}
+        element={<AuthFeeds isAuth={isLoggedIn} />}
+      />
     </Routes>
   );
 }
@@ -36,11 +43,4 @@ function AuthFeeds({ isAuth }) {
       navigateURL={ROUTE_PATH_LOGIN}
     />
   );
-}
-
-function Login() {
-  return <p>로그인 화면</p>;
-}
-function Feeds() {
-  return <p>피드 화면</p>;
 }
