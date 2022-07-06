@@ -2,8 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import FeedHeader from './FeedHeader';
 import FeedBody from './FeedBody';
 import styled from 'styled-components';
-
+import { useAuthState } from '../../context/AuthContext';
 function Feed({ feed }) {
+  const { userId } = useAuthState();
+
   const {
     profileImage,
     author,
@@ -14,7 +16,6 @@ function Feed({ feed }) {
   const commentInput = useRef(null);
   const [comments, setComments] = useState(defaultComments);
   const [isImageReady, setIsImageReady] = useState(false);
-
   useEffect(() => {
     commentInput.current.value = '';
   }, [comments]);
@@ -26,7 +27,7 @@ function Feed({ feed }) {
       ...prev,
       {
         id: Date.now(),
-        author: '스토리지에 저장된 이메일로 교체',
+        author: userId,
         comment: commentInput.current.value,
       },
     ]);

@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAuthState } from '../../context/AuthContext';
 import useValidation from '../../hooks/useValidation';
+import { setItem } from '../../utils/helpers/stroage';
 
 const EMAIL = 'test@test.com';
 const PASSWORD = '123456aA!';
@@ -18,7 +19,6 @@ const Login = () => {
   };
 
   const handleOnChange = (e, ref) => {
-    console.log(ref.current.value);
     updateValidValue(ref);
   };
 
@@ -28,7 +28,8 @@ const Login = () => {
       emailRef.current?.value === EMAIL &&
       passwordRef.current?.value === PASSWORD
     ) {
-      login();
+      const id = emailRef.current.value;
+      login(id);
     }
   };
 
