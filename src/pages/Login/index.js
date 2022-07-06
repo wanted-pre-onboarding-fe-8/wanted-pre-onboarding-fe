@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useAuthState } from '../../context/AuthContext';
 import useValidation from '../../hooks/useValidation';
-import { setItem } from '../../utils/helpers/stroage';
+import { setItem } from '../../utils/helpers/storage';
 
 const EMAIL = 'test@test.com';
 const PASSWORD = '123456aA!';
