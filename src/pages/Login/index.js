@@ -1,37 +1,36 @@
-import React, { useState, useEffect, uesRef } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
-// import Input from '../../components/Input';
-// import Button from '../../components/Button';
-// import Logo from '../../components/Logo';
-import Separator from '../../components/Spector';
 import { useAuthState } from '../../context/AuthContext';
-import { setItem, getItem, removeItem } from '../../utils/helpers/stroage';
+import useValidation from '../../hooks/useValidation';
 
-const EMAIL = 'email';
-const PASSWORD = 'password';
+const EMAIL = 'test@test.com';
+const PASSWORD = '123456aA!';
 
 const Login = () => {
-  const [emailState, setEmailState] = useState('');
-  const [passwordState, setPasswardState] = useState('');
   const { login } = useAuthState();
   const emailRef = React.useRef();
   const passwordRef = React.useRef();
+  const [isValidValue, updateValidValue] = useValidation();
 
-  const handleInput = (e, ref) => {
-    ref.current.value = e.target.value;
-    const { id, value } = ref.current;
-    id === 'email' ? setEmailState(value) : setPasswardState(value);
+  const handleKeyDown = (e) => {
+    if (e.isComposing && e.key === 'Enter') handleSubmit();
+  };
+
+  const handleOnChange = (e, ref) => {
+    console.log(ref.current.value);
+    updateValidValue(ref);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setItem(EMAIL, emailState);
-    setItem(PASSWORD, passwordState);
-    login();
+    e?.preventDefault();
+    if (
+      emailRef.current?.value === EMAIL &&
+      passwordRef.current?.value === PASSWORD
+    ) {
+      login();
+    }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <Container>
@@ -41,33 +40,30 @@ const Login = () => {
         </LogoBox>
         <Form onSubmit={handleSubmit}>
           <Input
-            id="email"
+            name="email"
             placeholder="전화번호, 사용자 이름 또는 이메일"
             ref={emailRef}
-            onChange={(event) => handleInput(event, emailRef)}
+            onChange={(event) => handleOnChange(event, emailRef)}
+            onKeyDown={handleKeyDown}
+            isValidated={isValidValue.email !== false}
           />
           <Input
-            id="password"
+            name="password"
             type="password"
             placeholder="비밀번호"
             ref={passwordRef}
-            onChange={(event) => handleInput(event, passwordRef)}
+            onChange={(event) => handleOnChange(event, passwordRef)}
+            onKeyDown={handleKeyDown}
+            isValidated={isValidValue.password !== false}
           />
-          <Button id="button" type="submit">
+          <Button
+            id="button"
+            type="submit"
+            isValidated={isValidValue.email && isValidValue.password}
+          >
             로그인
           </Button>
         </Form>
-        <Separator>또는</Separator>
-        <p>페이스북으로 로그인</p>
-        <p>비밀번호를 잊으셨나요?</p>
-
-        <p>계정이 없으신가요? 가입하기</p>
-
-        <p>앱을 다운로드 하세요.</p>
-        <div style={{ margin: '0 auto' }}>
-          <BtnImg src="" alt="" />
-          <BtnImg src="" alt="" />
-        </div>
       </Box>
     </Container>
   );
@@ -126,7 +122,9 @@ const Input = styled.input`
   background-color: #fafafa;
 `;
 
-const Button = styled.button`
+const Button = styled.button.attrs(({ isValidated }) => ({
+  disabled: !isValidated,
+}))`
   width: 270px;
   height: 38px;
   padding: 10px;
@@ -137,7 +135,7 @@ const Button = styled.button`
   margin-top: 5px;
   color: white;
   text-align: center;
-  cursor: pointer;
+  cursor: ${({ isValidated }) => (isValidated ? 'pointer' : 'default')};
 `;
 const BtnImg = styled.img`
   height: 40px;
