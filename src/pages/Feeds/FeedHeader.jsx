@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { MdMoreHoriz } from 'react-icons/md';
 
 function FeedHeader({ profileImage, author }) {
-  console.log(profileImage, author);
   return (
     <Container>
       <AuthorImage src={profileImage} />

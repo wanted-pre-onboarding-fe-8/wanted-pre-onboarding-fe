@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdOutlineSentimentSatisfied } from 'react-icons/md';
 
 function Comments({ comments, refCommentInput, onSubmit }) {
+  const [isReady, setIsReady] = useState(false);
+
+  const handleOnChange = (event) => {
+    const { value } = event.target;
+    setIsReady(value.length !== 0);
+  };
+
   return (
     <>
       <CommentsContainer>
@@ -21,8 +28,11 @@ function Comments({ comments, refCommentInput, onSubmit }) {
           ref={refCommentInput}
           type="text"
           placeholder="댓글 달기..."
+          onChange={handleOnChange}
         />
-        <SubmitButton onClick={onSubmit}>게시</SubmitButton>
+        <SubmitButton isReady={isReady} onClick={onSubmit}>
+          게시
+        </SubmitButton>
       </InputContainer>
     </>
   );
@@ -76,6 +86,6 @@ const SubmitButton = styled.button`
   background-color: transparent;
   font-size: 15px;
   font-weight: 800;
-  color: deepskyblue;
-  cursor: pointer;
+  color: ${(props) => (props.isReady ? '#0094f6' : '#c5e7fd')};
+  cursor: ${(props) => (props.isReady ? 'pointer' : 'auto')};
 `;
