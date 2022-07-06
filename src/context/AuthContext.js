@@ -5,6 +5,7 @@ import { setItem, getItem, removeItem } from '../utils/helpers/stroage';
 const defaultContext = {
   isLoggedIn: false,
   authed: false,
+  userId: '',
   login: () => {},
   logout: () => {},
 };
@@ -16,11 +17,16 @@ const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     !!getItem(LOG_KEY) // false
   );
+  const [userId, setUserId] = React.useState('');
 
-  const login = () => {
+  const login = (id) => {
     setItem(LOG_KEY, true);
+    setItem('user', id);
     const token = getItem(LOG_KEY);
+    const USER = getItem('user');
+    console.log(USER);
     setIsLoggedIn(token);
+    setUserId(USER);
   };
 
   const logout = () => {
@@ -28,7 +34,7 @@ const AuthContextProvider = ({ children }) => {
     setIsLoggedIn(false);
   };
 
-  const value = { isLoggedIn, login, logout };
+  const value = { isLoggedIn, login, logout, userId };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
