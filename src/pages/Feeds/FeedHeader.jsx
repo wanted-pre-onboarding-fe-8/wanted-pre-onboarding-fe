@@ -37,5 +37,4 @@ const Author = styled.div`
   padding: 15px;
   font-size: 14px;
   font-weight: 800;
-  margin-top: -5px;
 `;
