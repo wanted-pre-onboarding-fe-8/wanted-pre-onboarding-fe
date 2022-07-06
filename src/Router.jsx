@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthState } from './context/AuthContext';
 import Login from './pages/Login';
 import Feeds from './pages/Feeds';
+import { ROUTE_PATH_LOGIN, ROUTE_PATH_FEEDS } from './utils/constants';
 
 export default function Router() {
   const { isLoggedIn } = useAuthState();
