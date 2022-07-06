@@ -9,11 +9,10 @@ import {
   MdFavoriteBorder,
   MdLogout,
 } from 'react-icons/md';
+import { useAuthState } from '../context/AuthContext';
 
 function GNB() {
-  const mockLogout = () => {
-    alert('mock logout');
-  };
+  const { logout } = useAuthState();
 
   return (
     <Container>
@@ -36,7 +35,7 @@ function GNB() {
           <Icon>
             <MdFavoriteBorder size="28" />
           </Icon>
-          <Icon onClick={mockLogout}>
+          <Icon onClick={logout}>
             <MdLogout size="28" />
           </Icon>
         </IconSection>
